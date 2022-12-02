@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="dashboard-container">
-      <todo-header title="Activity" @add="addNewActivity" />
+      <todo-header title="Activity" add-button-data-cy="activity-add-button" @add="addNewActivity" />
       <div class="loading-state" v-if="isLoading">
         <b-spinner variant="primary"></b-spinner>
       </div>
       <empty-state
         v-else-if="activities.length < 1"
         :img-src="require('@/assets/illustrations/activity-empty-state.webp')"
+        data-cy="activity-empty-state"
         @add="addNewActivity"
       />
       <div class="dashboard-content" v-else>
@@ -25,6 +26,7 @@
     <confirm-delete-modal
       v-model="isShowDeleteConfirmation"
       :selected="selectedActivity"
+      ok-data-cy="activity-item-delete-button"
       @delete="deleteSelectedActivity"
       @toggle="toggleDeleteConfirmModal"
     ></confirm-delete-modal>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="dashboard-container">
-      <todo-header @add="toggleAddEditTodoModal">
+      <todo-header add-button-data-cy="todo-add-button" @add="toggleAddEditTodoModal">
         <template #title>
           <div class="header-title">
             <router-link to="/" data-cy="todo-icon-back">
@@ -18,7 +18,7 @@
                 name="title"
                 class="input-title"
               >
-              <h1 class="m-0" v-else>
+              <h1 class="m-0" @click="toggleEditableTitle" v-else>
                 {{ detail.title }}
               </h1>
             </div>
@@ -38,6 +38,7 @@
       <empty-state
         v-else-if="detail.todo_items.length < 1"
         :img-src="require('@/assets/illustrations/todo-empty-state.webp')"
+        data-cy="todo-empty-state"
         @add="toggleAddEditTodoModal"
       />
       <div class="todo-list" v-else>
@@ -83,6 +84,7 @@
         <div class="body">
           <b-form-group label="NAMA LIST ITEM" label-for="input-name" class="mb-3">
             <b-form-input
+              data-cy="modal-add-name-input"
               id="input-name"
               v-model="todoItem.title"
               placeholder="Tambahkan nama activity"
@@ -91,7 +93,12 @@
           </b-form-group>
 
           <b-form-group label="PRIORITY" label-for="dropdown-priority" class="mb-3">
-            <b-dropdown id="dropdown-priority" variant="outline-secondary" class="dropdown-list">
+            <b-dropdown
+              id="dropdown-priority"
+              variant="outline-secondary"
+              class="dropdown-list"
+              data-cy="modal-add-priority-dropdown"
+            >
               <template #button-content>
                 <span>
                   <span
@@ -134,6 +141,7 @@
     <confirm-delete-modal
       v-model="isShowDeleteConfirmation"
       :selected="selectedTodo"
+      ok-data-cy="modal-delete-confirm-button"
       @delete="deleteSelectedTodo"
       @toggle="toggleDeleteConfirmModal"
     ></confirm-delete-modal>

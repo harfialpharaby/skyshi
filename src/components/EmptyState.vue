@@ -15,6 +15,10 @@ export default {
   props: {
     imgSrc: {
       default: require('@/assets/illustrations/activity-empty-state.webp')
+    },
+    dataCy: {
+      type: String,
+      default: 'todo-empty-state'
     }
   },
   methods: {

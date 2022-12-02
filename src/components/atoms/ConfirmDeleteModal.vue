@@ -28,7 +28,7 @@
           Batal
         </s-button>
         <s-button
-          data-cy="modal-delete-confirm-button"
+          :data-cy="okDataCy"
           bg-color="#ED4C5C"
           @click="onDelete"
         >
@@ -55,6 +55,10 @@ export default {
     selected: {
       type: Object,
       default: null
+    },
+    okDataCy: {
+      type: String,
+      default: ''
     }
   },
   computed: {

@@ -7,7 +7,7 @@
     </h1>
     <slot name="cta"></slot>
     <s-button
-      data-cy="activity-add-button"
+      :data-cy="addButtonDataCy"
       bg-color="#16abf8"
       @click="handleAddNewData"
     >
@@ -33,6 +33,10 @@ export default {
     title: {
       type: String,
       default: 'Activity'
+    },
+    addButtonDataCy: {
+      type: String,
+      default: 'activity-add-button'
     }
   },
   methods: {
