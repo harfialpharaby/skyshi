@@ -10,7 +10,7 @@
         {{ formattedDate }}
       </span>
       <img
-        data-cy=activity-item-delete-button
+        data-cy="modal-delete"
         src="@/assets/icons/delete.svg"
         alt="delete-icon"
         class="delete-icon"
