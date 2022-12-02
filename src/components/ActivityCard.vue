@@ -1,6 +1,6 @@
 <template>
-  <div class="activity-card" data-cy="activity-item">
-    <div class="activity-body" @click.prevent="toActivityDetail">
+  <div class="activity-card">
+    <div class="activity-body" data-cy="activity-item" @click.prevent="toActivityDetail">
       <h4 data-cy="activity-item-title">
         {{ title }}
       </h4>

@@ -61,7 +61,7 @@ export default {
     },
     okDataCy: {
       type: String,
-      default: ''
+      default: 'modal-delete-confirm-button'
     }
   },
   computed: {

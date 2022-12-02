@@ -18,7 +18,7 @@
                 name="title"
                 class="input-title"
               >
-              <h1 class="m-0" @click="toggleEditableTitle" v-else>
+              <h1 class="m-0" data-cy="todo-title" @click="toggleEditableTitle" v-else>
                 {{ detail.title }}
               </h1>
             </div>
