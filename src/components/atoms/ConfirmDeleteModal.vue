@@ -1,13 +1,12 @@
 <template>
   <b-modal
     v-model="isShowModal"
-    data-cy="todo-modal-delete"
     lazy
     centered
     hide-header
     hide-footer
   >
-    <div class="modal-container">
+    <div class="modal-container" :data-cy="modalDataCy">
       <div class="d-flex justify-content-center">
         <img src="@/assets/icons/modal-delete.svg" alt="modal-delete-icon" data-cy="modal-delete-icon">
       </div>
@@ -55,6 +54,10 @@ export default {
     selected: {
       type: Object,
       default: null
+    },
+    modalDataCy: {
+      type: String,
+      default: 'modal-delete'
     },
     okDataCy: {
       type: String,

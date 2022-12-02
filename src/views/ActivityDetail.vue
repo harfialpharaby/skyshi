@@ -141,6 +141,7 @@
     <confirm-delete-modal
       v-model="isShowDeleteConfirmation"
       :selected="selectedTodo"
+      modal-data-cy="todo-modal-delete"
       ok-data-cy="modal-delete-confirm-button"
       @delete="deleteSelectedTodo"
       @toggle="toggleDeleteConfirmModal"
