@@ -1,5 +1,5 @@
 <template>
-  <div class="empty-state">
+  <div class="empty-state" :data-cy="dataCy">
     <b-img
       :src="imgSrc"
       alt="empty-state-image"

@@ -7,7 +7,7 @@
             <router-link to="/" data-cy="todo-icon-back">
               <img src="@/assets/icons/back.svg" alt="back-icon">
             </router-link>
-            <div data-cy="todo-title">
+            <div>
               <input
                 v-if="isTitleEditable"
                 v-model="newTitle"
@@ -57,7 +57,6 @@
 
     <b-modal
       v-model="isShowNewTodoModal"
-      data-cy="todo-item-add-modal"
       size="lg"
       lazy
       centered
@@ -65,7 +64,7 @@
       hide-footer
       body-class="p-0"
     >
-      <div class="modal-container">
+      <div class="modal-container" data-cy="modal-add">
         <div class="header">
           <h4>
             Tambah List Item
@@ -112,6 +111,7 @@
               <b-dropdown-item
                 v-for="(priority, iPriority) in availablePriorities"
                 :key="`priority-${iPriority}`"
+                data-cy="modal-add-priority-item"
                 @click.prevent="handleChangePriority(priority)"
               >
                 <div class="priority-list">
