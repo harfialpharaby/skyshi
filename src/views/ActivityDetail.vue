@@ -301,6 +301,16 @@ export default {
         await axios.delete(`https://todo.api.devcode.gethired.id/todo-items/${this.selectedTodo.id}`)
         this.toggleDeleteConfirmModal()
         this.getActivityDetail()
+        Swal
+          .mixin({
+            toast: true,
+            showConfirmButton: false,
+          })
+          .fire({
+            icon: 'error',
+            html: '<div data-cy="modal-information">Todo berhasil dihapus</div>',
+            timer: 3000
+          })
       } catch (error) {
         Swal
           .mixin({

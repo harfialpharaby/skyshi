@@ -60,7 +60,6 @@ export default {
       this.isLoading = true
       try {
         const { data } = await axios.get('https://todo.api.devcode.gethired.id/activity-groups?email=harfialpharaby@gmail.com')
-        // const { data } = await axios.get('https://todo.api.devcode.gethired.id/activity-groups?email=ivan@skyshi.com')
         this.activities = data.data
       } catch (error) {
         this.activities = []
@@ -82,8 +81,8 @@ export default {
           })
           .fire({
             icon: 'error',
-            html: '<div data-cy="modal-information">Gagal menambahkan activity</div>',
-            timer: 3000
+            timer: 3000,
+            title: 'Gagal menambahkan activity'
           })
       }
     },
