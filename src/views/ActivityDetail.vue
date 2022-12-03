@@ -348,23 +348,24 @@ export default {
       }
     },
     async updateIsActive (value, id) {
-      try {
-        await axios.patch(`https://todo.api.devcode.gethired.id/todo-items/${id}`, {
-          is_active: value
-        })
-        this.getActivityDetail(false)
-      } catch (error) {
-        Swal
-          .mixin({
-            toast: true,
-            showConfirmButton: false,
-          })
-          .fire({
-            icon: 'error',
-            timer: 1000,
-            title: 'Gagal mengubah checklist'
-          })
-      }
+      console.log('YAHUD', value, id);
+      // try {
+      //   await axios.patch(`https://todo.api.devcode.gethired.id/todo-items/${id}`, {
+      //     is_active: value
+      //   })
+      //   this.getActivityDetail(false)
+      // } catch (error) {
+      //   Swal
+      //     .mixin({
+      //       toast: true,
+      //       showConfirmButton: false,
+      //     })
+      //     .fire({
+      //       icon: 'error',
+      //       timer: 1000,
+      //       title: 'Gagal mengubah checklist'
+      //     })
+      // }
     },
     validateSubmitAction () {
       if (this.todoItem.id > 0) {
@@ -421,24 +422,24 @@ export default {
     activeSort (value) {
       switch (value) {
         case SORTS.TERLAMA:
-          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('-created_at'))
-          break
-
-        case SORTS.TERBARU:
-          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('created_at'))
+          this.detail.todo_items.sort(dynamicSort('-created_at'))
           break
 
         case SORTS.AZ:
-          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('title'))
+          this.detail.todo_items.sort(dynamicSort('title'))
           break
 
         case SORTS.ZA:
-          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('-title'))
+          this.detail.todo_items.sort(dynamicSort('-title'))
           break
                 
         case SORTS.BELUM_SELESAI:
-        default:
-          this.detail.todo_items = this.detail.todo_items.sort()
+          this.detail.todo_items.sort(dynamicSort('-is_active'))
+          break
+
+        case SORTS.TERBARU:
+          default:
+          this.detail.todo_items.sort(dynamicSort('created_at'))
           break
       }
     }

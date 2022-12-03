@@ -12,7 +12,7 @@
         :class="['title', { 'inactive': isActiveTodo === 0 }]"
         data-cy="todo-item-title"
       >
-        {{ title }} {{ isActiveTodo }}
+        {{ title }}
       </p>
       <img
         data-cy="todo-item-edit-button"
