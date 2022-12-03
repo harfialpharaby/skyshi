@@ -26,7 +26,6 @@
     <confirm-delete-modal
       v-model="isShowDeleteConfirmation"
       :selected="selectedActivity"
-      modal-data-cy="modal-delete"
       ok-data-cy="modal-delete-confirm-button"
       @delete="deleteSelectedActivity"
       @toggle="toggleDeleteConfirmModal"
