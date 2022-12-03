@@ -28,6 +28,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background: #F4F4F4;
+  min-height: 100vh;
 }
 
 .dashboard-container {

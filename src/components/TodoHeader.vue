@@ -5,19 +5,21 @@
         {{ title }}
       </slot>
     </h1>
-    <slot name="cta"></slot>
-    <s-button
-      :data-cy="addButtonDataCy"
-      bg-color="#16abf8"
-      @click="handleAddNewData"
-    >
-      <template>
-        <div>
-          <img :src="require('@/assets/icons/plus.svg')" alt="icon-plus" class="mr-2">
-          Tambah
-        </div>
-      </template>
-    </s-button>
+    <div class="cta-container">
+      <slot name="cta"></slot>
+      <s-button
+        :data-cy="addButtonDataCy"
+        bg-color="#16abf8"
+        @click="handleAddNewData"
+      >
+        <template>
+          <div>
+            <img :src="require('@/assets/icons/plus.svg')" alt="icon-plus" class="mr-2">
+            Tambah
+          </div>
+        </template>
+      </s-button>
+    </div>
   </div>
 </template>
 
@@ -53,5 +55,12 @@ export default {
   justify-content: space-between;
   margin: 43px 0 55px;
   width: 100%;
+}
+
+.cta-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
 }
 </style>

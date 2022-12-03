@@ -31,6 +31,42 @@
             >
           </div>
         </template>
+
+        <template #cta>
+          <b-dropdown
+            v-if="detail.todo_items.length > 0"
+            variant="link"
+            toggle-class="text-decoration-none"
+            menu-class="p-0 radius"
+            no-caret
+            data-cy="todo-sort-button"
+          >
+            <template #button-content>
+              <div class="sort-btn">
+                <img src="@/assets/icons/arrow-sort.svg" alt="arrow-sort">
+              </div>
+            </template>
+            <b-dropdown-item-button
+              v-for="(sort, iSort) in availableSorts"
+              :key="`sort-${iSort}`"
+              data-cy="sort-selection"
+              button-class="p-0 border-bottom"
+              @click.prevent="handleChangeSort(sort)"
+            >
+              <div class="sort-list">
+                <div class="d-flex align-items-center">
+                  <img :src="sort.icon" alt="sort-icon">
+                  {{ sort.name }}
+                </div>
+                <img
+                  v-if="sort.name === activeSort.name"
+                  src="@/assets/icons/sort-check.svg"
+                  alt="sort-check"
+                >
+              </div>
+            </b-dropdown-item-button>
+          </b-dropdown>
+        </template>
       </todo-header>
       <div class="loading-state" v-if="isLoading">
         <b-spinner variant="primary"></b-spinner>
@@ -57,7 +93,7 @@
 
     <b-modal
       v-model="isShowNewTodoModal"
-      size="lg"
+      size="md"
       lazy
       centered
       hide-header
@@ -108,7 +144,7 @@
                   {{ todoItem.priority.name }}
                 </span>
               </template>
-              <b-dropdown-item
+              <b-dropdown-item-button
                 v-for="(priority, iPriority) in availablePriorities"
                 :key="`priority-${iPriority}`"
                 data-cy="modal-add-priority-item"
@@ -118,7 +154,7 @@
                   <span class="priority-color" :style="{ backgroundColor: priority.color }"></span>
                   {{ priority.name }}
                 </div>
-              </b-dropdown-item>
+              </b-dropdown-item-button>
             </b-dropdown>
           </b-form-group>
         </div>
@@ -153,6 +189,8 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { PRIORITIES } from '@/constants/priorities.js'
+import { SORTS } from '@/constants/sorts.js'
+import dynamicSort from '@/helper/dynamicSort.js'
 import SButton from '@/components/atoms/SButton.vue'
 import TodoHeader from '@/components/TodoHeader.vue'
 
@@ -172,6 +210,7 @@ export default {
       isShowNewTodoModal: false,
       isShowDeleteConfirmation: false,
       newTitle: '',
+      activeSort: SORTS.TERBARU,
       availablePriorities: PRIORITIES,
       selectedTodo: null,
       detail: {
@@ -191,6 +230,16 @@ export default {
   computed: {
     validateButton () {
       return this.todoItem.title === '' && !PRIORITIES.some(priority => priority.value === this.todoItem.priority)
+    },
+    availableSorts () {
+      const sorts = []
+      for (const key in SORTS) {
+        if (Object.hasOwnProperty.call(SORTS, key)) {
+          const element = SORTS[key]
+          sorts.push(element)
+        }
+      }
+      return sorts
     }
   },
   methods: {
@@ -320,6 +369,9 @@ export default {
     handleChangePriority (newPriority) {
       this.todoItem.priority = newPriority
     },
+    handleChangeSort (newSort) {
+      this.activeSort = newSort
+    },
     toggleEditableTitle () {
       this.isTitleEditable = !this.isTitleEditable
       if (this.isTitleEditable) {
@@ -334,6 +386,32 @@ export default {
         this.isTitleEditable = false
       }
     },
+  },
+  watch: {
+    activeSort (value) {
+      switch (value) {
+        case SORTS.TERLAMA:
+          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('-created_at'))
+          break
+
+        case SORTS.TERBARU:
+          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('created_at'))
+          break
+
+        case SORTS.AZ:
+          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('title'))
+          break
+
+        case SORTS.ZA:
+          this.detail.todo_items = this.detail.todo_items.sort(dynamicSort('-title'))
+          break
+                
+        case SORTS.BELUM_SELESAI:
+        default:
+          this.detail.todo_items = this.detail.todo_items.sort()
+          break
+      }
+    }
   },
   created() {
    this.getActivityDetail() 
@@ -412,6 +490,28 @@ export default {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+  color: #4A4A4A;
+}
+
+.sort-btn {
+  width: 54px;
+  height: 54px;
+  border: 1px solid #E5E5E5;
+  border-radius: 45px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sort-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 17px 21px;
   color: #4A4A4A;
 }
 </style>
