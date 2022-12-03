@@ -1,8 +1,8 @@
 <template>
-  <div class="todo-card">
+  <div class="todo-card" data-cy="todo-item">
     <div class="todo-title">
       <div data-cy="todo-item-priority-indicator" class="priority-color" :style="{ backgroundColor: priorityColor }"></div>
-      <p class="title">
+      <p class="title" data-cy="todo-item-title">
         {{ title }}
       </p>
       <img
