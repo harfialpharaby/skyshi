@@ -87,6 +87,7 @@
           :is-active="todo.is_active"
           @delete="toggleDeleteConfirmModal"
           @edit="toggleAddEditTodoModal"
+          @changeactive="updateIsActive"
         ></todo-card>
       </div>
     </div>
@@ -243,8 +244,8 @@ export default {
     }
   },
   methods: {
-    async getActivityDetail () {
-      this.isLoading = true
+    async getActivityDetail (hasLoading = true) {
+      this.isLoading = hasLoading
       try {
         const { data } = await axios.get(`https://todo.api.devcode.gethired.id/activity-groups/${this.$route.params.id}`)
         this.detail = data
@@ -333,6 +334,25 @@ export default {
             icon: 'error',
             timer: 1000,
             title: 'Gagal mengubah todo'
+          })
+      }
+    },
+    async updateIsActive (value, id) {
+      try {
+        await axios.patch(`https://todo.api.devcode.gethired.id/todo-items/${id}`, {
+          is_active: value
+        })
+        this.getActivityDetail(false)
+      } catch (error) {
+        Swal
+          .mixin({
+            toast: true,
+            showConfirmButton: false,
+          })
+          .fire({
+            icon: 'error',
+            timer: 1000,
+            title: 'Gagal mengubah checklist'
           })
       }
     },

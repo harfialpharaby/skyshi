@@ -1,9 +1,18 @@
 <template>
   <div class="todo-card" data-cy="todo-item">
     <div class="todo-title">
+      <b-form-checkbox
+        v-model="isActiveTodo"
+        data-cy="todo-item-checkbox"
+        :value="0"
+        :unchecked-value="1"
+      ></b-form-checkbox>
       <div data-cy="todo-item-priority-indicator" class="priority-color" :style="{ backgroundColor: priorityColor }"></div>
-      <p class="title" data-cy="todo-item-title">
-        {{ title }}
+      <p
+        :class="['title', { 'inactive': isActiveTodo === 0 }]"
+        data-cy="todo-item-title"
+      >
+        {{ title }} {{ isActiveTodo }}
       </p>
       <img
         data-cy="todo-item-edit-button"
@@ -49,6 +58,14 @@ export default {
   computed: {
     priorityColor () {
       return PRIORITIES.find(priority => priority.value === this.priority)?.color
+    },
+    isActiveTodo: {
+      get () {
+        return this.isActive
+      },
+      set (value) {
+        this.$emit('changeactive', !!value, this.id)
+      }
     }
   },
   methods: {
@@ -63,6 +80,11 @@ export default {
 </script>
 
 <style scoped>
+.inactive {
+  text-decoration-line: line-through;
+  color: #888888 !important;
+}
+
 .todo-card {
   width: 100%;
   background: #FFFFFF;
@@ -85,6 +107,7 @@ export default {
   border-radius: 50%;
   display: inline-block;
   margin-right: 19px;
+  margin-left: 22px;
 }
 
 .title {
