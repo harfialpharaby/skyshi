@@ -6,35 +6,41 @@
     hide-header
     hide-footer
   >
-    <div class="modal-container" :data-cy="modalDataCy">
-      <div class="d-flex justify-content-center">
-        <img src="@/assets/icons/modal-delete.svg" alt="modal-delete-icon" data-cy="modal-delete-icon">
+    <template #default>
+      <div class="modal-container" :data-cy="modalDataCy">
+        <div class="d-flex justify-content-center">
+          <img src="@/assets/icons/modal-delete.svg" alt="modal-delete-icon" data-cy="modal-delete-icon">
+        </div>
+        <p class="modal-delete-title">
+          Apakah anda yakin menghapus activity
+          <br>
+          <b v-if="selected">
+            “{{ selected.title }}”?
+          </b>
+        </p>
+        <div class="modal-delete-footer">
+          <s-button
+            data-cy="modal-delete-cancel-button"
+            text-color="#4A4A4A"
+            bg-color="#F4F4F4"
+            @click="toggleDeleteConfirmModal"
+          >
+            Batal
+          </s-button>
+          <s-button
+            :data-cy="okDataCy"
+            bg-color="#ED4C5C"
+            @click="onDelete"
+          >
+            Hapus
+          </s-button>
+        </div>
       </div>
-      <p class="modal-delete-title">
-        Apakah anda yakin menghapus activity
-        <br>
-        <b v-if="selected">
-          “{{ selected.title }}”?
-        </b>
-      </p>
-      <div class="modal-delete-footer">
-        <s-button
-          data-cy="modal-delete-cancel-button"
-          text-color="#4A4A4A"
-          bg-color="#F4F4F4"
-          @click="toggleDeleteConfirmModal"
-        >
-          Batal
-        </s-button>
-        <s-button
-          :data-cy="okDataCy"
-          bg-color="#ED4C5C"
-          @click="onDelete"
-        >
-          Hapus
-        </s-button>
-      </div>
-    </div>
+    </template>
+
+    <template #modal-backdrop>
+      <div data-cy="modal-delete" class="h-100 w-100"></div>
+    </template>
   </b-modal>
 </template>
 
