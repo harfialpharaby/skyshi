@@ -82,8 +82,8 @@ export default {
           })
           .fire({
             icon: 'error',
-            timer: 1000,
-            title: 'Gagal menambahkan activity'
+            html: '<div data-cy="modal-information">Gagal menambahkan activity</div>',
+            timer: 9999
           })
       }
     },
@@ -99,8 +99,8 @@ export default {
           .fire({
             icon: 'success',
             iconHtml: '!',
-            timer: 1000,
-            title: 'Activity berhasil dihapus'
+            html: '<div data-cy="modal-information">Activity berhasil dihapus</div>',
+            timer: 9999,
           })
         this.getActivityList()
       } catch (error) {
