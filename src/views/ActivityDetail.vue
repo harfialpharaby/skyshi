@@ -39,7 +39,7 @@
             toggle-class="text-decoration-none"
             menu-class="p-0 radius"
             no-caret
-            data-cy="todo-sort-button"
+            :toggle-attrs="{ 'data-cy': 'todo-sort-button' }"
           >
             <template #button-content>
               <div class="sort-btn">
