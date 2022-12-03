@@ -11,9 +11,7 @@
       <p
         :class="['title', { 'inactive': isActiveTodo === 0 }]"
         data-cy="todo-item-title"
-      >
-        {{ title.trim() }}
-      </p>
+      >{{ title }}</p>
       <img
         data-cy="todo-item-edit-button"
         src="@/assets/icons/edit.svg"
